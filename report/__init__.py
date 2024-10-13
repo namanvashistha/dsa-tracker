@@ -35,7 +35,6 @@ def generate_totals_report(leet_data, gfg_data):
     message_lines = []
     message_lines.append(datetime_now)
     message_lines.append(f"LeetCode: {leetcode_diff}")
-    message_lines.append(f"LeetCode: {leetcode_diff}")
     message_lines.append(f"GFG: {gfg_diff}")
     message = "\n".join(message_lines)
     return message
