@@ -33,7 +33,7 @@ def generate_totals_report(leet_data, gfg_data):
         f.write(json.dumps(totals))
 
     message_lines = []
-    message_lines.append(datetime_now)
+    message_lines.append(f"*{datetime_now}*\n")
     message_lines.append(f"LeetCode: {leetcode_diff}")
     message_lines.append(f"GFG: {gfg_diff}")
     message = "\n".join(message_lines)
