@@ -11,4 +11,4 @@ def get_gfg_user_profile_data():
     url = "https://practiceapi.geeksforgeeks.org/api/v1/user/problems/submissions/"
     response = requests.post(url, json=data)
     result = response.json()["result"]
-    return result
+    return {"calender": result, "total": sum(result.values())}

@@ -26,7 +26,6 @@ def get_leet_user_profile_data():
         "operationName": "languageStats",
     }
     response = requests.post(url, json=data)
-    print(response.text)
     for sub in response.json()["data"]["matchedUser"]["languageProblemCount"]:
         if sub["languageName"] == "Python3":
             result["total"] = sub["problemsSolved"]
