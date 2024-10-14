@@ -43,7 +43,7 @@ def sync_leetcode_submissions():
 
 def send_leetcode_submissions_to_telegram():
     submissions = database.submissions.find(
-        {"status": "accepted", "telegram_sent": False}
+        {"status": "accepted", "telegram_sent": {"$ne": True}}
     ).sort("timestamp", 1)
     message_lines = []
     for result in submissions:
