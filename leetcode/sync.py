@@ -35,7 +35,8 @@ def sync_leetcode_submissions():
 
     for result in results:
         try:
-            database.submissions.insert_one(result)
+            if not database.submissions.find_one({"title_slug": result["title_slug"]}):
+                database.submissions.insert_one(result)
         except DuplicateKeyError:
             pass
     return results
