@@ -43,13 +43,7 @@ def sync_leetcode_submissions():
             else:
                 database.submissions.update_one(
                     {"_id": result["_id"]},
-                    {
-                        "$addToSet": {
-                            "ac_timestamps": datetime.fromtimestamp(
-                                int(result["timestamp"]), timezone.utc
-                            )
-                        }
-                    },
+                    {"$addToSet": {"ac_timestamps": result["timestamp"]}},
                 )
                 if submission["timestamp"] != result["timestamp"]:
                     database.submissions.update_one(
