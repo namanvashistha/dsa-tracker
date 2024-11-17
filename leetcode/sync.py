@@ -45,16 +45,10 @@ def sync_leetcode_submissions():
                     {"title_slug": result["title_slug"]},
                     {
                         "$addToSet": {"ac_timestamps": result["timestamp"]},
-                        "$set": {"timestamp": result["timestamp"]},
+                        "$set": {"timestamp": result["timestamp"], "telegram_sent": False},
                     },
                     upsert=False,
                 )
-                if submission["timestamp"] != result["timestamp"]:
-                    database.submissions.update_one(
-                        {"title_slug": result["title_slug"]},
-                        {"$set": {"telegram_sent": True}},
-                    )
-
         except DuplicateKeyError:
             pass
     return results
