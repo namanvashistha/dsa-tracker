@@ -40,7 +40,7 @@ def sync_leetcode_submissions():
             )
             if not submission:
                 database.submissions.insert_one(result)
-            else:
+            elif submission["timestamp"] != result["timestamp"].replace(tzinfo=None):
                 database.submissions.update_one(
                     {"title_slug": result["title_slug"]},
                     {
