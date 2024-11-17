@@ -35,8 +35,27 @@ def sync_leetcode_submissions():
 
     for result in results:
         try:
-            if not database.submissions.find_one({"title_slug": result["title_slug"]}):
+            submission = database.submissions.find_one(
+                {"title_slug": result["title_slug"]}
+            )
+            if not submission:
                 database.submissions.insert_one(result)
+            else:
+                database.submissions.update_one(
+                    {"_id": result["_id"]},
+                    {
+                        "$addToSet": {
+                            "ac_timestamps": datetime.fromtimestamp(
+                                int(result["timestamp"]), timezone.utc
+                            )
+                        }
+                    },
+                )
+                if submission["timestamp"] != result["timestamp"]:
+                    database.submissions.update_one(
+                        {"_id": result["_id"]}, {"$set": {"telegram_sent": True}}
+                    )
+
         except DuplicateKeyError:
             pass
     return results
